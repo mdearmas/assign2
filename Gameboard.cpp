@@ -1,0 +1,177 @@
+#include "Gameboard.h"
+
+Gameboard::Gameboard()
+{
+  horizontal = 10;
+  vertical = 10;
+  board = new char*[horizontal];
+
+  for(int i = 0; i < horizontal; ++i)
+  {
+    board[i] = new char[vertical];
+  }
+
+  for(int i = 0; i < horizontal; ++i)
+  {
+    for(int j = 0; j < vertical; ++j)
+    {
+      board[i][j] = '-';
+    }
+  }
+}
+
+Gameboard::Gameboard(int h, int v)
+{
+  horizontal = h;
+  vertical = v;
+  board = new char*[horizontal];
+
+  for(int i = 0; i < horizontal; ++i)
+  {
+    board[i] = new char[vertical];
+  }
+
+  for(int i = 0; i < horizontal; ++i)
+  {
+    for(int j = 0; j < vertical; ++j)
+    {
+      board[i][j] = '-';
+    }
+  }
+}
+
+Gameboard::Gameboard(const Gameboard& copy)
+{
+  horizontal = copy.horizontal;
+  vertical = copy.vertical;
+  board = new char*[horizontal];
+
+  for(int i = 0; i < horizontal; ++i)
+  {
+    board[i] = new char[vertical];
+  }
+
+  for(int i = 0; i < horizontal; ++i)
+  {
+    for(int j = 0; j < vertical; ++j)
+    {
+      board[i][j] = copy.board[i][j];
+    }
+  }
+}
+
+Gameboard::~Gameboard()
+{
+  for(int i = 0; i < horizontal; ++i)
+  {
+    delete[] board[i];
+  }
+
+  delete[] board;
+}
+
+void Gameboard::resize(int h, int v)
+{
+  for(int i = 0; i < horizontal; ++i)
+  {
+    delete[] board[i];
+  }
+  delete[] board;
+
+  horizontal = h;
+  vertical = v;
+  board = new char*[horizontal];
+
+  for(int i = 0; i < horizontal; ++i)
+  {
+    board[i] = new char[vertical];
+  }
+
+  for(int i = 0; i < horizontal; ++i)
+  {
+    for(int j = 0; j < vertical; ++j)
+    {
+      board[i][j] = '-';
+    }
+  }
+}
+
+void Gameboard::randomFill(double density)
+{
+  int r;
+  for(int i = 0; i < horizontal; ++i)
+  {
+    for(int j = 0; j < vertical; ++j)
+    {
+      r = rand() % 100;
+      if( r <= (density * 100) )
+      {
+        board[i][j] = 'X';
+      }
+    }
+  }
+}
+
+bool Gameboard::fileFill(string filename)
+{
+  ifstream input_file;
+  bool return_val = true;
+
+  int index = 0;
+  int line_count = 0;
+  int h;
+  int v;
+
+  string line;
+
+  input_file.open(filename);
+  if(input_file.is_open())
+  {
+    input_file >> h;
+    input_file >> v;
+
+    input_file.clear();
+    input_file.seekg(0);
+    resize(h, v);
+
+    while ( getline(input_file, line) )
+    {
+      if(line_count < 2)
+      {
+        ++line_count;
+      }
+      else
+      {
+        for (int i = 0; i < vertical; ++i)
+        {
+          board[index][i] = line[i];
+        }
+        ++index;
+      }
+    }
+    return_val = true;
+    input_file.close();
+  }
+  else
+  {
+    return_val = false;
+  }
+
+  return return_val;
+}
+
+bool Gameboard::compare(const Gameboard& g1, const Gameboard& g2)
+{
+  bool return_val = true;
+  for(int i = 0; i < horizontal; ++i)
+  {
+    for(int j = 0; j < vertical; ++j)
+    {
+      if(g1.board[i][j] != g2.board[i][j])
+      {
+        return_val = false;
+      }
+    }
+  }
+  return return_val;
+}
