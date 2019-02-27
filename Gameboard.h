@@ -27,6 +27,8 @@ public:
   bool fileFill(string filename);
   bool compare(const Gameboard& g1, const Gameboard& g2);
 
+  Gameboard& operator=(const Gameboard &g);
+
 private:
   int horizontal;
   int vertical;

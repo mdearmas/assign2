@@ -66,7 +66,6 @@ Gameboard::~Gameboard()
   {
     delete[] board[i];
   }
-
   delete[] board;
 }
 
@@ -174,4 +173,33 @@ bool Gameboard::compare(const Gameboard& g1, const Gameboard& g2)
     }
   }
   return return_val;
+}
+
+Gameboard& Gameboard::operator=(const Gameboard &g)
+{
+  if(this != &g)
+  {
+    for(int i = 0; i < horizontal; ++i)
+    {
+      delete[] board[i];
+    }
+    delete[] board;
+
+    horizontal = g.horizontal;
+    vertical = g.vertical;
+    board = new char*[horizontal];
+
+    for(int i = 0; i < horizontal; ++i)
+    {
+      board[i] = new char[vertical];
+    }
+
+    for(int i = 0; i < horizontal; ++i)
+    {
+      for(int j = 0; j < vertical; ++j)
+      {
+        board[i][j] = g.board[i][j];
+      }
+    }
+  }
 }
