@@ -159,14 +159,33 @@ bool Gameboard::fileFill(string filename)
   return return_val;
 }
 
-bool Gameboard::compare(const Gameboard& g1, const Gameboard& g2)
+bool Gameboard::compare(const Gameboard& g)
 {
   bool return_val = true;
+  char **board2 = g.getBoard();
+
   for(int i = 0; i < horizontal; ++i)
   {
     for(int j = 0; j < vertical; ++j)
     {
-      if(g1.board[i][j] != g2.board[i][j])
+      if(board[i][j] != board2[i][j])
+      {
+        return_val = false;
+      }
+    }
+  }
+  return return_val;
+}
+
+bool Gameboard::isEmpty()
+{
+  bool return_val = true;
+
+  for(int i = 0; i < horizontal; ++i)
+  {
+    for(int j = 0; j < vertical; ++j)
+    {
+      if(board[i][j] == 'X')
       {
         return_val = false;
       }

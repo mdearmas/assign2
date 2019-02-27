@@ -12,7 +12,6 @@ void Simulation::printGeneration(const Gameboard& g, int generation_count)
   char **a = g.getBoard();
 
   cout << "Generation " << generation_count << endl;
-  cout << endl;
 
   for(int i = 0; i < h; ++i)
   {

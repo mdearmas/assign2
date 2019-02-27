@@ -25,7 +25,8 @@ public:
   void randomFill(double density);
 
   bool fileFill(string filename);
-  bool compare(const Gameboard& g1, const Gameboard& g2);
+  bool compare(const Gameboard& g);
+  bool isEmpty();
 
   Gameboard& operator=(const Gameboard &g);
 

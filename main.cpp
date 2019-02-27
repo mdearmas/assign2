@@ -51,5 +51,6 @@ int main(int argc, char **argv)
   }
 
   s.printGeneration(g, 1);
+  s.next();
 
 }
