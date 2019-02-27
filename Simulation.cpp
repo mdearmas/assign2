@@ -2,7 +2,7 @@
 
 Simulation::Simulation()
 {
-  active = true;
+  mode = "Basic";
 }
 
 void Simulation::printGeneration(const Gameboard& g, int generation_count)
