@@ -9,9 +9,9 @@ using namespace std;
 
 class Gameplay {
 public:
-  Gameplay();
-  Gameplay(const Gameboard& game);
+  Gameplay(Gameboard& game);
 
+  void setCurrent(Gameboard& game);
   void death(int h, int v);
   void birth(int h, int v);
 
@@ -26,7 +26,7 @@ public:
   bool isOscillating();
 
 private:
-  Gameboard current;
+  Gameboard* current;
   Gameboard previous;
   Gameboard previous2;
 

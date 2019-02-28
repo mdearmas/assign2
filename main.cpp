@@ -1,5 +1,6 @@
 #include "Gameboard.h"
 #include "Simulation.h"
+#include "Gameplay.h"
 
 int main(int argc, char **argv)
 {
@@ -9,6 +10,7 @@ int main(int argc, char **argv)
 
   int h = 0;
   int v = 0;
+  int generation_count = 0;
 
   double density;
 
@@ -50,7 +52,16 @@ int main(int argc, char **argv)
     g.randomFill(density);
   }
 
-  s.printGeneration(g, 1);
-  s.next();
+  Gameplay p(g);
+
+  s.printGeneration(g, 0);
+
+  do
+  {
+    ++generation_count;
+    p.play();
+    s.printGeneration(g, generation_count);
+    s.next();
+  } while(!g.isEmpty() && !p.isStable());
 
 }

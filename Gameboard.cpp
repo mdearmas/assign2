@@ -95,6 +95,16 @@ void Gameboard::resize(int h, int v)
   }
 }
 
+void Gameboard::death(int h, int v)
+{
+  board[h][v] = '-';
+}
+
+void Gameboard::birth(int h, int v)
+{
+  board[h][v] = 'X';
+}
+
 void Gameboard::randomFill(double density)
 {
   int r;

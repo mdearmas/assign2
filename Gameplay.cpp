@@ -1,40 +1,30 @@
 #include "Gameplay.h"
 
-Gameplay::Gameplay()
+Gameplay::Gameplay(Gameboard& game)
 {
-  current = Gameboard();
-  previous = Gameboard(current);
-  previous2 = Gameboard(current);
+  current = &game;
+  previous = Gameboard(*current);
+  previous2 = Gameboard(*current);
 
-  current_board = current.getBoard();
+  current_board = (*current).getBoard();
   previous_board = previous.getBoard();
 }
 
-Gameplay::Gameplay(const Gameboard& game)
+void Gameplay::setCurrent(Gameboard& game)
 {
-  current = Gameboard(game);
-  previous = Gameboard(current);
-  previous2 = Gameboard(current);
+  current = &game;
+  previous = Gameboard(*current);
+  previous2 = Gameboard(*current);
 
-  current_board = current.getBoard();
+  current_board = (*current).getBoard();
   previous_board = previous.getBoard();
-}
-
-void Gameplay::death(int h, int v)
-{
-  current_board[h][v] = '-';
-}
-
-void Gameplay::birth(int h, int v)
-{
-  current_board[h][v] = 'X';
 }
 
 void Gameplay::play()
 {
   int total_neighbors = 0;
   previous2 = previous;
-  previous = current;
+  previous = *current;
   previous_board = previous.getBoard();
 
   for(int h = 0; h < previous.getHorizontal(); ++h)
@@ -42,21 +32,22 @@ void Gameplay::play()
     for(int v = 0; v < previous.getVertical(); ++v)
     {
       total_neighbors = checkHorizontal(h, v) + checkVertical(h, v) + checkLeftDiagonal(h, v) + checkRightDiagonal(h, v);
-      if(total_neighbors = 3)
+      if(total_neighbors == 3)
       {
-        birth(h, v);
+        (*current).birth(h, v);
       }
       else if(total_neighbors >= 4 || total_neighbors <= 1)
       {
-        death(h, v);
+        (*current).death(h, v);
       }
+      total_neighbors = 0;
     }
   }
 }
 
 int Gameplay::checkHorizontal(int h, int v)
 {
-  int neighbors;
+  int neighbors = 0;
 
   if(v != 0)
   {
@@ -79,7 +70,7 @@ int Gameplay::checkHorizontal(int h, int v)
 
 int Gameplay::checkVertical(int h, int v)
 {
-  int neighbors;
+  int neighbors = 0;
 
   if(h != 0)
   {
@@ -102,7 +93,7 @@ int Gameplay::checkVertical(int h, int v)
 
 int Gameplay::checkLeftDiagonal(int h, int v)
 {
-  int neighbors;
+  int neighbors = 0;
 
   if(h != 0 && v != 0)
   {
@@ -125,7 +116,7 @@ int Gameplay::checkLeftDiagonal(int h, int v)
 
 int Gameplay::checkRightDiagonal(int h, int v)
 {
-  int neighbors;
+  int neighbors = 0;
 
   if(h != 0 && v != previous.getVertical()-1)
   {
@@ -148,10 +139,10 @@ int Gameplay::checkRightDiagonal(int h, int v)
 
 bool Gameplay::isStable()
 {
-  return (current.compare(previous));
+  return ((*current).compare(previous));
 }
 
 bool Gameplay::isOscillating()
 {
-  return (current.compare(previous2));
+  return ((*current).compare(previous2));
 }

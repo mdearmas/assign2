@@ -22,6 +22,9 @@ public:
 
 
   void resize(int h, int v);
+  void death(int h, int v);
+  void birth(int h, int v);
+  
   void randomFill(double density);
 
   bool fileFill(string filename);
