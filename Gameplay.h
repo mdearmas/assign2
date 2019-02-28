@@ -11,7 +11,6 @@ class Gameplay {
 public:
   Gameplay(Gameboard& game);
 
-  void setCurrent(Gameboard& game);
   void death(int h, int v);
   void birth(int h, int v);
 
@@ -28,10 +27,13 @@ public:
 private:
   Gameboard* current;
   Gameboard previous;
-  Gameboard previous2;
+  Gameboard first;
 
   char **current_board;
   char **previous_board;
+
+  int stable_repetitions;
+  int oscillating_repetitions;
 };
 
 #endif

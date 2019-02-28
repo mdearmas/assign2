@@ -54,14 +54,15 @@ int main(int argc, char **argv)
 
   Gameplay p(g);
 
-  s.printGeneration(g, 0);
+  s.printGeneration(g);
+  s.next();
 
   do
   {
     ++generation_count;
     p.play();
-    s.printGeneration(g, generation_count);
+    s.printGeneration(g);
     s.next();
-  } while(!g.isEmpty() && !p.isStable());
+  } while(!g.isEmpty() && !p.isStable() && !p.isOscillating());
 
 }

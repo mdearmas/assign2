@@ -4,26 +4,18 @@ Gameplay::Gameplay(Gameboard& game)
 {
   current = &game;
   previous = Gameboard(*current);
-  previous2 = Gameboard(*current);
+  first = Gameboard(*current);
 
   current_board = (*current).getBoard();
   previous_board = previous.getBoard();
-}
 
-void Gameplay::setCurrent(Gameboard& game)
-{
-  current = &game;
-  previous = Gameboard(*current);
-  previous2 = Gameboard(*current);
-
-  current_board = (*current).getBoard();
-  previous_board = previous.getBoard();
+  stable_repetitions = 0;
+  oscillating_repetitions = 0;
 }
 
 void Gameplay::play()
 {
   int total_neighbors = 0;
-  previous2 = previous;
   previous = *current;
   previous_board = previous.getBoard();
 
@@ -139,10 +131,28 @@ int Gameplay::checkRightDiagonal(int h, int v)
 
 bool Gameplay::isStable()
 {
-  return ((*current).compare(previous));
+  bool return_val = false;
+  if((*current).compare(previous))
+  {
+    ++stable_repetitions;
+  }
+  if(stable_repetitions == 3)
+  {
+    return_val = true;
+  }
+  return return_val;
 }
 
 bool Gameplay::isOscillating()
 {
-  return ((*current).compare(previous2));
+  bool return_val = false;
+  if((*current).compare(first))
+  {
+    ++oscillating_repetitions;
+  }
+  if(oscillating_repetitions == 3)
+  {
+    return_val = true;
+  }
+  return return_val;
 }

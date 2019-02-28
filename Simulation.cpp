@@ -5,13 +5,11 @@ Simulation::Simulation()
   mode = "Basic";
 }
 
-void Simulation::printGeneration(const Gameboard& g, int generation_count)
+void Simulation::printGeneration(const Gameboard& g)
 {
   int h = g.getHorizontal();
   int v = g.getVertical();
   char **a = g.getBoard();
-
-  cout << "Generation " << generation_count << endl;
 
   for(int i = 0; i < h; ++i)
   {
