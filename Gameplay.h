@@ -10,11 +10,12 @@ using namespace std;
 class Gameplay {
 public:
   Gameplay(Gameboard& game);
+  virtual ~Gameplay() {};
 
   void death(int h, int v);
   void birth(int h, int v);
 
-  virtual void play();
+  void play();
 
   virtual int checkHorizontal(int h, int v);
   virtual int checkVertical(int h, int v);
@@ -24,7 +25,7 @@ public:
   bool isStable();
   bool isOscillating();
 
-private:
+protected:
   Gameboard* current;
   Gameboard previous;
   Gameboard first;

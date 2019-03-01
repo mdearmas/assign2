@@ -1,6 +1,8 @@
 #include "Gameboard.h"
 #include "Simulation.h"
 #include "Gameplay.h"
+#include "Doughnut.h"
+#include "Controlpanel.h"
 
 int main(int argc, char **argv)
 {
@@ -11,6 +13,7 @@ int main(int argc, char **argv)
   int h = 0;
   int v = 0;
   int generation_count = 0;
+  int quit;
 
   double density;
 
@@ -18,8 +21,11 @@ int main(int argc, char **argv)
 
   string filepath;
 
+  bool game_active = true;
+
   Gameboard g;
   Simulation s;
+  Controlpanel c;
 
   cout << "Would you like to input a map file or randomly generate a map? Enter 'M' for map file and 'R' for random. ";
   cin >> answer;
@@ -53,16 +59,55 @@ int main(int argc, char **argv)
   }
 
   Gameplay p(g);
+  Doughnut pd(g);
+
+  cout << "What game mode would you like? Press 'C' for classic, 'D' for doughnut, or 'M' for mirror: ";
+  cin >> answer;
+
+  if ( toupper(answer) == 'D' )
+  {
+    cout << "Doughnut mode has been selected. " << endl;
+    cout << endl;
+  }
+  else if ( toupper(answer) != 'C' )
+  {
+    cout << "Incompatible response. The program will default to classic mode." << endl;
+  }
 
   s.printGeneration(g);
   s.next();
 
-  do
+  while(game_active)
   {
-    ++generation_count;
-    p.play();
-    s.printGeneration(g);
-    s.next();
-  } while(!g.isEmpty() && !p.isStable() && !p.isOscillating());
+    if (g.isEmpty())
+    {
+      c.pressEnterToContinue("it is empty");
+      game_active = false;
+    }
+    else if ( toupper(answer) == 'D' )
+    {
+      pd.play();
+      s.printGeneration(g);
+      s.next();
+
+      if(pd.isStable() || pd.isOscillating())
+      {
+        c.pressEnterToContinue("it has stabilized");
+        game_active = false;
+      }
+    }
+    else
+    {
+      p.play();
+      s.printGeneration(g);
+      s.next();
+
+      if(p.isStable() || p.isOscillating())
+      {
+        c.pressEnterToContinue("it has stabilized");
+        game_active = false;
+      }
+    }
+  }
 
 }
