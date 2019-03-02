@@ -1,5 +1,6 @@
 #include "Gameboard.h"
 #include "Simulation.h"
+#include "EnterSim.h"
 #include "Gameplay.h"
 #include "Doughnut.h"
 #include "Mirror.h"
@@ -18,13 +19,16 @@ int main(int argc, char **argv)
   double density;
 
   char answer;
+  char output_mode;
 
   string filepath;
 
   bool game_active = true;
 
   Gameboard g;
+
   Simulation s;
+  EnterSim se;
 
   cout << "Would you like to input a map file or randomly generate a map? Enter 'M' for map file and 'R' for random. ";
   cin >> answer;
@@ -57,13 +61,8 @@ int main(int argc, char **argv)
     g.randomFill(density);
   }
 
-  Gameplay p(g);
-  Doughnut pd(g);
-  Mirror pm(g);
-
   cout << "What game mode would you like? Press 'C' for classic, 'D' for doughnut, or 'M' for mirror: ";
   cin >> answer;
-
   if ( toupper(answer) == 'D' )
   {
     cout << "Doughnut mode has been selected. " << endl;
@@ -78,52 +77,81 @@ int main(int argc, char **argv)
   {
     cout << "Incompatible response. The program will default to classic mode." << endl;
   }
+  else
+  {
+    cout << "Classic mode has been selected. " << endl;
+  }
 
-  s.printGeneration(g, generation_count);
+  Gameplay p(g);
+  Doughnut pd(g);
+  Mirror pm(g);
+
+  cout << "How would you like your output? Press 'P' for a pause between generations, 'E' for an ENTER key press to trigger generations, or 'F' for an output file containing the results: ";
+  cin >> output_mode;
+  if ( toupper(output_mode) == 'E' )
+  {
+    cout << "Keypress mode has been selected. " << endl;
+    cout << endl;
+  }
+  else if ( toupper(output_mode) == 'F')
+  {
+    cout << "File output mode has been selected. " << endl;
+    cout << endl;
+  }
+  else if ( toupper(output_mode) != 'P' )
+  {
+    cout << "Incompatible response. The program will default to pause mode." << endl;
+  }
+  else
+  {
+    cout << "Pause mode has been selected. " << endl;
+  }
+
+  se.printGeneration(g, generation_count);
   ++generation_count;
   cin.ignore();
-  s.next();
+  se.next();
 
   while(game_active)
   {
     if (g.isEmpty())
     {
-      s.pressEnterToContinue("it is empty");
+      se.pressEnterToContinue("it is empty");
       game_active = false;
     }
     else if ( toupper(answer) == 'D' )
     {
       pd.play();
-      s.printNextGeneration(g, generation_count);
-      s.next();
+      se.printNextGeneration(g, generation_count);
+      se.next();
 
       if(pd.isStable() || pd.isOscillating())
       {
-        s.pressEnterToContinue("it has stabilized");
+        se.pressEnterToContinue("it has stabilized");
         game_active = false;
       }
     }
     else if( toupper(answer) == 'M' )
     {
       pm.play();
-      s.printNextGeneration(g, generation_count);
-      s.next();
+      se.printNextGeneration(g, generation_count);
+      se.next();
 
       if(pm.isStable() || pm.isOscillating())
       {
-        s.pressEnterToContinue("it has stabilized");
+        se.pressEnterToContinue("it has stabilized");
         game_active = false;
       }
     }
     else
     {
       p.play();
-      s.printNextGeneration(g, generation_count);
-      s.next();
+      se.printNextGeneration(g, generation_count);
+      se.next();
 
       if(p.isStable() || p.isOscillating())
       {
-        s.pressEnterToContinue("it has stabilized");
+        se.pressEnterToContinue("it has stabilized");
         game_active = false;
       }
     }

@@ -1,10 +1,5 @@
 #include "Simulation.h"
 
-Simulation::Simulation()
-{
-  mode = "Basic";
-}
-
 void Simulation::printGeneration(const Gameboard& g, int generation_count)
 {
   int h = g.getHorizontal();
