@@ -2,6 +2,7 @@
 #include "Simulation.h"
 #include "Gameplay.h"
 #include "Doughnut.h"
+#include "Mirror.h"
 #include "Controlpanel.h"
 
 int main(int argc, char **argv)
@@ -60,6 +61,7 @@ int main(int argc, char **argv)
 
   Gameplay p(g);
   Doughnut pd(g);
+  Mirror pm(g);
 
   cout << "What game mode would you like? Press 'C' for classic, 'D' for doughnut, or 'M' for mirror: ";
   cin >> answer;
@@ -67,6 +69,11 @@ int main(int argc, char **argv)
   if ( toupper(answer) == 'D' )
   {
     cout << "Doughnut mode has been selected. " << endl;
+    cout << endl;
+  }
+  else if ( toupper(answer) == 'M')
+  {
+    cout << "Mirror mode has been selected. " << endl;
     cout << endl;
   }
   else if ( toupper(answer) != 'C' )
@@ -91,6 +98,18 @@ int main(int argc, char **argv)
       s.next();
 
       if(pd.isStable() || pd.isOscillating())
+      {
+        c.pressEnterToContinue("it has stabilized");
+        game_active = false;
+      }
+    }
+    else if( toupper(answer) == 'M' )
+    {
+      pm.play();
+      s.printGeneration(g);
+      s.next();
+
+      if(pm.isStable() || pm.isOscillating())
       {
         c.pressEnterToContinue("it has stabilized");
         game_active = false;
