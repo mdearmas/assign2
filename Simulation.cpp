@@ -28,7 +28,7 @@ void Simulation::printNextGeneration(const Gameboard& g, int generation_count)
   int v = g.getVertical();
   char **a = g.getBoard();
 
-  for(int i = 0; i <= h; i++)
+ for(int i = 0; i <= h + 1; i++)
   {
     cout << "\033[F";
   }
@@ -46,21 +46,20 @@ void Simulation::printNextGeneration(const Gameboard& g, int generation_count)
 
 void Simulation::next()
 {
+  cout << endl;
   this_thread::sleep_for (chrono::seconds(1));
 }
 
 void Simulation::pressEnterToContinue()
 {
-  cin.ignore ( 1024, '\n' );
   cin.clear();
   cout << "Press [ENTER] to continue. ";
-  cin.get();
+  cin.ignore(1024, '\n');
 }
 
 void Simulation::pressEnterToContinue(string reason)
 {
-  cin.ignore ( 265, '\n' );
   cin.clear();
   cout << "The simulation has stopped because " << reason << ". Please press [ENTER] to exit. " ;
-  cin.get();
+  cin.ignore ( 1024, '\n' );
 }

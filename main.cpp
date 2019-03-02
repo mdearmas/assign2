@@ -81,6 +81,7 @@ int main(int argc, char **argv)
 
   s.printGeneration(g, generation_count);
   ++generation_count;
+  cin.ignore();
   s.next();
 
   while(game_active)
