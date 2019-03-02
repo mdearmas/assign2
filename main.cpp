@@ -66,12 +66,10 @@ int main(int argc, char **argv)
   if ( toupper(answer) == 'D' )
   {
     cout << "Doughnut mode has been selected. " << endl;
-    cout << endl;
   }
   else if ( toupper(answer) == 'M')
   {
     cout << "Mirror mode has been selected. " << endl;
-    cout << endl;
   }
   else if ( toupper(answer) != 'C' )
   {
@@ -91,71 +89,76 @@ int main(int argc, char **argv)
   if ( toupper(output_mode) == 'E' )
   {
     cout << "Keypress mode has been selected. " << endl;
-    cout << endl;
+    se.printGeneration(g, generation_count);
+    ++generation_count;
+    cin.ignore();
+    se.next();
+
+    while(game_active)
+    {
+      if (g.isEmpty())
+      {
+        se.pressEnterToContinue("it is empty");
+        game_active = false;
+      }
+      else if ( toupper(answer) == 'D' )
+      {
+        se.runSim(g, pd, game_active, generation_count);
+      }
+      else if( toupper(answer) == 'M' )
+      {
+        se.runSim(g, pm, game_active, generation_count);
+      }
+      else
+      {
+        se.runSim(g, p, game_active, generation_count);
+      }
+      ++generation_count;
+    }
   }
   else if ( toupper(output_mode) == 'F')
   {
     cout << "File output mode has been selected. " << endl;
-    cout << endl;
-  }
-  else if ( toupper(output_mode) != 'P' )
-  {
-    cout << "Incompatible response. The program will default to pause mode." << endl;
   }
   else
   {
-    cout << "Pause mode has been selected. " << endl;
-  }
-
-  se.printGeneration(g, generation_count);
-  ++generation_count;
-  cin.ignore();
-  se.next();
-
-  while(game_active)
-  {
-    if (g.isEmpty())
+    if( toupper(output_mode) != 'P' )
     {
-      se.pressEnterToContinue("it is empty");
-      game_active = false;
-    }
-    else if ( toupper(answer) == 'D' )
-    {
-      pd.play();
-      se.printNextGeneration(g, generation_count);
-      se.next();
-
-      if(pd.isStable() || pd.isOscillating())
-      {
-        se.pressEnterToContinue("it has stabilized");
-        game_active = false;
-      }
-    }
-    else if( toupper(answer) == 'M' )
-    {
-      pm.play();
-      se.printNextGeneration(g, generation_count);
-      se.next();
-
-      if(pm.isStable() || pm.isOscillating())
-      {
-        se.pressEnterToContinue("it has stabilized");
-        game_active = false;
-      }
+      cout << "Incompatible response. The program will default to pause mode." << endl;
     }
     else
     {
-      p.play();
-      se.printNextGeneration(g, generation_count);
-      se.next();
+      cout << "Pause mode has been selected. " << endl;
+    }
+    
+    s.printGeneration(g, generation_count);
+    ++generation_count;
+    cin.ignore();
+    s.next();
 
-      if(p.isStable() || p.isOscillating())
+    while(game_active)
+    {
+      if (g.isEmpty())
       {
-        se.pressEnterToContinue("it has stabilized");
+        s.pressEnterToContinue("it is empty");
         game_active = false;
       }
+      else if ( toupper(answer) == 'D' )
+      {
+        s.runSim(g, pd, game_active, generation_count);
+      }
+      else if( toupper(answer) == 'M' )
+      {
+        s.runSim(g, pm, game_active, generation_count);
+      }
+      else
+      {
+        s.runSim(g, p, game_active, generation_count);
+      }
+      ++generation_count;
     }
-    ++generation_count;
   }
+
+
 
 }

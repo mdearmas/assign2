@@ -58,3 +58,16 @@ void Simulation::pressEnterToContinue(string reason)
   cout << "The simulation has stopped because " << reason << ". Please press [ENTER] to exit. " ;
   cin.ignore ( 1024, '\n' );
 }
+
+void Simulation::runSim(Gameboard& g, Gameplay& p, bool &b, int generation_count)
+{
+  p.play();
+  this->printNextGeneration(g, generation_count);
+  this->next();
+
+  if(p.isStable() || p.isOscillating())
+  {
+    this->pressEnterToContinue("it has stabilized");
+    b = false;
+  }
+}
