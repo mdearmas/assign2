@@ -3,7 +3,6 @@
 #include "Gameplay.h"
 #include "Doughnut.h"
 #include "Mirror.h"
-#include "Controlpanel.h"
 
 int main(int argc, char **argv)
 {
@@ -26,7 +25,6 @@ int main(int argc, char **argv)
 
   Gameboard g;
   Simulation s;
-  Controlpanel c;
 
   cout << "Would you like to input a map file or randomly generate a map? Enter 'M' for map file and 'R' for random. ";
   cin >> answer;
@@ -81,52 +79,54 @@ int main(int argc, char **argv)
     cout << "Incompatible response. The program will default to classic mode." << endl;
   }
 
-  s.printGeneration(g);
+  s.printGeneration(g, generation_count);
+  ++generation_count;
   s.next();
 
   while(game_active)
   {
     if (g.isEmpty())
     {
-      c.pressEnterToContinue("it is empty");
+      s.pressEnterToContinue("it is empty");
       game_active = false;
     }
     else if ( toupper(answer) == 'D' )
     {
       pd.play();
-      s.printGeneration(g);
+      s.printNextGeneration(g, generation_count);
       s.next();
 
       if(pd.isStable() || pd.isOscillating())
       {
-        c.pressEnterToContinue("it has stabilized");
+        s.pressEnterToContinue("it has stabilized");
         game_active = false;
       }
     }
     else if( toupper(answer) == 'M' )
     {
       pm.play();
-      s.printGeneration(g);
+      s.printNextGeneration(g, generation_count);
       s.next();
 
       if(pm.isStable() || pm.isOscillating())
       {
-        c.pressEnterToContinue("it has stabilized");
+        s.pressEnterToContinue("it has stabilized");
         game_active = false;
       }
     }
     else
     {
       p.play();
-      s.printGeneration(g);
+      s.printNextGeneration(g, generation_count);
       s.next();
 
       if(p.isStable() || p.isOscillating())
       {
-        c.pressEnterToContinue("it has stabilized");
+        s.pressEnterToContinue("it has stabilized");
         game_active = false;
       }
     }
+    ++generation_count;
   }
 
 }
