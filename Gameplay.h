@@ -31,7 +31,7 @@ protected:
   Gameboard previous;
   Gameboard first;
 
-  Gameboard past_boards[100];
+  Gameboard past_boards[1200]; //enough to accomodate the r-pentomino
 
   char **current_board;
   char **previous_board;
