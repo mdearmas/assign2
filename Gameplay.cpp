@@ -1,5 +1,22 @@
 #include "Gameplay.h"
 
+Gameplay::Gameplay()
+{
+  Gameboard g;
+  current = &g;
+
+  previous = Gameboard(*current);
+  first = Gameboard(*current);
+
+  current_board = (*current).getBoard();
+  previous_board = previous.getBoard();
+
+  stable_repetitions = 0;
+  oscillating_repetitions = 0;
+  repeating_repetitions = 0;
+  playtime = 0;
+}
+
 Gameplay::Gameplay(Gameboard& game)
 {
   current = &game;
