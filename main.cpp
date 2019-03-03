@@ -1,6 +1,7 @@
 #include "Gameboard.h"
 #include "Simulation.h"
 #include "EnterSim.h"
+#include "FileSim.h"
 #include "Gameplay.h"
 #include "Doughnut.h"
 #include "Mirror.h"
@@ -21,7 +22,8 @@ int main(int argc, char **argv)
   char answer;
   char output_mode;
 
-  string filepath;
+  string input_filepath;
+  string output_filepath;
 
   bool game_active = true;
 
@@ -29,6 +31,7 @@ int main(int argc, char **argv)
 
   Simulation s;
   EnterSim se;
+  FileSim sf;
 
   cout << "Would you like to input a map file or randomly generate a map? Enter 'M' for map file and 'R' for random. ";
   cin >> answer;
@@ -36,12 +39,12 @@ int main(int argc, char **argv)
   if ( toupper(answer) == 'M' )
   {
     cout << "Please enter your file name: ";
-    cin >> filepath;
+    cin >> input_filepath;
 
-    while(!g.fileFill(filepath))
+    while(!g.fileFill(input_filepath))
     {
       cout << "An error has occurred. Try again: ";
-      cin >> filepath;
+      cin >> input_filepath;
     }
   }
   else if ( toupper(answer) != 'R' )
@@ -118,7 +121,33 @@ int main(int argc, char **argv)
   }
   else if ( toupper(output_mode) == 'F')
   {
-    cout << "File output mode has been selected. " << endl;
+    cout << "File output mode has been selected. Please enter the name of your output file: ";
+    cin >> output_filepath;
+    sf.setFileName(output_filepath);
+
+    cin.ignore();
+
+    while(game_active)
+    {
+      if (g.isEmpty())
+      {
+        sf.pressEnterToContinue("it is empty");
+        game_active = false;
+      }
+      else if ( toupper(answer) == 'D' )
+      {
+        sf.runSim(g, pd, game_active, generation_count);
+      }
+      else if( toupper(answer) == 'M' )
+      {
+        sf.runSim(g, pm, game_active, generation_count);
+      }
+      else
+      {
+        sf.runSim(g, p, game_active, generation_count);
+      }
+      ++generation_count;
+    }
   }
   else
   {
@@ -130,7 +159,7 @@ int main(int argc, char **argv)
     {
       cout << "Pause mode has been selected. " << endl;
     }
-    
+
     s.printGeneration(g, generation_count);
     ++generation_count;
     cin.ignore();
@@ -158,7 +187,4 @@ int main(int argc, char **argv)
       ++generation_count;
     }
   }
-
-
-
 }
