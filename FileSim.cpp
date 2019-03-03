@@ -3,11 +3,13 @@
 FileSim::FileSim()
 {
   filename = "";
+  first_time = true;
 }
 
 FileSim::FileSim(string file)
 {
   filename = file;
+  first_time = true;
 }
 
 void FileSim::setFileName(string file)
@@ -21,11 +23,18 @@ void FileSim::runSim(Gameboard& g, Gameplay& p, bool &b, int generation_count)
 
   if(ouput_file.is_open())
   {
-    p.play();
-    this->printGeneration(g, generation_count, ouput_file);
-    this->next(ouput_file);
+    if(first_time)
+    {
+      this->printGeneration(g, generation_count, ouput_file);
+    }
+    else
+    {
+      p.play();
+      this->printGeneration(g, generation_count, ouput_file);
+      this->next(ouput_file);
+    }
 
-    if(p.isStable() || p.isOscillating())
+    if(p.isStable() || p.isOscillating() || p.isRepeating())
     {
       this->pressEnterToContinue("it has stabilized");
       b = false;

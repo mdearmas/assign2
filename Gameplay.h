@@ -24,17 +24,22 @@ public:
 
   bool isStable();
   bool isOscillating();
+  bool isRepeating();
 
 protected:
   Gameboard* current;
   Gameboard previous;
   Gameboard first;
 
+  Gameboard past_boards[100];
+
   char **current_board;
   char **previous_board;
 
   int stable_repetitions;
   int oscillating_repetitions;
+  int repeating_repetitions;
+  int playtime;
 };
 
 #endif

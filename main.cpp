@@ -56,11 +56,36 @@ int main(int argc, char **argv)
   {
     cout << "Enter the number of rows of the board: ";
     cin >> h;
+    while (cin.fail())
+    {
+      cin.clear();
+      cin.ignore(1024, '\n');
+      cout << "Not a valid number of rows. Try again: ";
+      cin >> h;
+    }
+
     cout << "Enter the number of columns of the board: ";
     cin >> v;
+    while (cin.fail())
+    {
+      cin.clear();
+      cin.ignore(1024, '\n');
+      cout << "Not a valid number of columns. Try again: ";
+      cin.clear();
+      cin >> v;
+    }
+
     g.resize(h, v);
-    cout << "Enter the population density of your world (a decimal between 0–10): ";
+
+    cout << "Enter the population density of your world (a decimal between 0–1): ";
     cin >> density;
+    while (cin.fail())
+    {
+      cin.clear();
+      cin.ignore(1024, '\n');
+      cout << "Not a population density. Try again: ";
+      cin >> density;
+    }
     g.randomFill(density);
   }
 
@@ -94,7 +119,7 @@ int main(int argc, char **argv)
     cout << "Keypress mode has been selected. " << endl;
     se.printGeneration(g, generation_count);
     ++generation_count;
-    cin.ignore();
+    cin.ignore(1024, '\n');
     se.next();
 
     while(game_active)
@@ -125,7 +150,7 @@ int main(int argc, char **argv)
     cin >> output_filepath;
     sf.setFileName(output_filepath);
 
-    cin.ignore();
+    cin.ignore(1024, '\n');
 
     while(game_active)
     {
@@ -162,7 +187,7 @@ int main(int argc, char **argv)
 
     s.printGeneration(g, generation_count);
     ++generation_count;
-    cin.ignore();
+    cin.ignore(1024, '\n');
     s.next();
 
     while(game_active)

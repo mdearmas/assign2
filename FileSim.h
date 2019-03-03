@@ -17,6 +17,7 @@ public:
 
 private:
   string filename;
+  bool first_time;
 };
 
 #endif

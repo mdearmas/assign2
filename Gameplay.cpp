@@ -11,12 +11,15 @@ Gameplay::Gameplay(Gameboard& game)
 
   stable_repetitions = 0;
   oscillating_repetitions = 0;
+  repeating_repetitions = 0;
+  playtime = 0;
 }
 
 void Gameplay::play()
 {
   int total_neighbors = 0;
   previous = *current;
+  past_boards[playtime] = *current;
   previous_board = previous.getBoard();
 
   for(int h = 0; h < previous.getHorizontal(); ++h)
@@ -35,6 +38,7 @@ void Gameplay::play()
       total_neighbors = 0;
     }
   }
+  ++playtime;
 }
 
 int Gameplay::checkHorizontal(int h, int v)
@@ -153,6 +157,23 @@ bool Gameplay::isOscillating()
   if(oscillating_repetitions == 3)
   {
     return_val = true;
+  }
+  return return_val;
+}
+
+bool Gameplay::isRepeating()
+{
+  bool return_val = false;
+  for(int i = 0; i < playtime; ++i)
+  {
+    if((*current).compare(past_boards[i]))
+    {
+      ++repeating_repetitions;
+    }
+    if(repeating_repetitions == 30)
+    {
+      return_val = true;
+    }
   }
   return return_val;
 }

@@ -6,7 +6,7 @@ void Simulation::runSim(Gameboard& g, Gameplay& p, bool &b, int generation_count
   this->printNextGeneration(g, generation_count);
   this->next();
 
-  if(p.isStable() || p.isOscillating())
+  if(p.isStable() || p.isOscillating() || p.isRepeating())
   {
     this->pressEnterToContinue("it has stabilized");
     b = false;
