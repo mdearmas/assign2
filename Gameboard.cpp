@@ -138,7 +138,7 @@ bool Gameboard::fileFill(string filename)
   {
     input_file >> h;
     input_file >> v;
-    if (input_file.fail())
+    if (h < 1 || v < 1 || input_file.fail())
     {
       return_val = false;
     }
@@ -158,11 +158,18 @@ bool Gameboard::fileFill(string filename)
         {
           for (int i = 0; i < vertical; ++i)
           {
-            board[index][i] = line[i];
-            if(line[i] != '-' || line[i] != 'X')
+            if(index >= horizontal)
             {
               return_val = false;
               break;
+            }
+            else if(line[i] != '-' && line[i] != 'X')
+            {
+              return_val = false;
+            }
+            else
+            {
+              board[index][i] = line[i];
             }
           }
           ++index;

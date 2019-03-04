@@ -56,7 +56,7 @@ int main(int argc, char **argv)
   {
     cout << "Enter the number of rows of the board: ";
     cin >> h;
-    while (cin.fail())
+    while (cin.fail() || h < 1)
     {
       cin.clear();
       cin.ignore(1024, '\n');
@@ -66,7 +66,7 @@ int main(int argc, char **argv)
 
     cout << "Enter the number of columns of the board: ";
     cin >> v;
-    while (cin.fail())
+    while (cin.fail() || v < 1)
     {
       cin.clear();
       cin.ignore(1024, '\n');
@@ -79,7 +79,7 @@ int main(int argc, char **argv)
 
     cout << "Enter the population density of your world (a decimal between 0–1): ";
     cin >> density;
-    while (cin.fail())
+    while (cin.fail() || density > 1 || density < 0)
     {
       cin.clear();
       cin.ignore(1024, '\n');

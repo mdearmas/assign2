@@ -26,6 +26,7 @@ void FileSim::runSim(Gameboard& g, Gameplay& p, bool &b, int generation_count)
     if(first_time)
     {
       this->printGeneration(g, generation_count, ouput_file);
+      first_time = false;
     }
     else
     {
