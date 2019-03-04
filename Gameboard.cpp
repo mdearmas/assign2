@@ -138,27 +138,37 @@ bool Gameboard::fileFill(string filename)
   {
     input_file >> h;
     input_file >> v;
-
-    input_file.clear();
-    input_file.seekg(0);
-    resize(h, v);
-
-    while ( getline(input_file, line) )
+    if (input_file.fail())
     {
-      if(line_count < 2)
+      return_val = false;
+    }
+    else
+    {
+      input_file.clear();
+      input_file.seekg(0);
+      resize(h, v);
+
+      while ( getline(input_file, line) )
       {
-        ++line_count;
-      }
-      else
-      {
-        for (int i = 0; i < vertical; ++i)
+        if(line_count < 2)
         {
-          board[index][i] = line[i];
+          ++line_count;
         }
-        ++index;
+        else
+        {
+          for (int i = 0; i < vertical; ++i)
+          {
+            board[index][i] = line[i];
+            if(line[i] != '-' || line[i] != 'X')
+            {
+              return_val = false;
+              break;
+            }
+          }
+          ++index;
+        }
       }
     }
-    return_val = true;
     input_file.close();
   }
   else

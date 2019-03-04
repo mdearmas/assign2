@@ -43,7 +43,7 @@ int main(int argc, char **argv)
 
     while(!g.fileFill(input_filepath))
     {
-      cout << "An error has occurred. Try again: ";
+      cout << "An error has occurred; either the file does not exist, or the file is not in the correct format. Try again: ";
       cin >> input_filepath;
     }
   }
