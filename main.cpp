@@ -64,6 +64,9 @@ int main(int argc, char **argv)
       cin >> h;
     }
 
+    cin.clear();
+    cin.ignore(1024, '\n');
+
     cout << "Enter the number of columns of the board: ";
     cin >> v;
     while (cin.fail() || v < 1)
@@ -71,9 +74,11 @@ int main(int argc, char **argv)
       cin.clear();
       cin.ignore(1024, '\n');
       cout << "Not a valid number of columns. Try again: ";
-      cin.clear();
       cin >> v;
     }
+
+    cin.clear();
+    cin.ignore(1024, '\n');
 
     g.resize(h, v);
 
@@ -88,6 +93,9 @@ int main(int argc, char **argv)
     }
     g.randomFill(density);
   }
+
+  cin.clear();
+  cin.ignore(1024, '\n');
 
   cout << "What game mode would you like? Press 'C' for classic, 'D' for doughnut, or 'M' for mirror: ";
   cin >> answer;
@@ -111,6 +119,9 @@ int main(int argc, char **argv)
   Gameplay p(g);
   Doughnut pd(g);
   Mirror pm(g);
+
+  cin.clear();
+  cin.ignore(1024, '\n');
 
   cout << "How would you like your output? Press 'P' for a pause between generations, 'E' for an ENTER key press to trigger generations, or 'F' for an output file containing the results: ";
   cin >> output_mode;
