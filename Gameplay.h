@@ -6,7 +6,6 @@
   Assignment 2: Game of Life
   Purpose: This is the header file for the Gameplay class, which manages the standard Game of Life's rules and processes (including checking for neighbors and populating the succeeding generation.)
 */
-
 #ifndef GAMEPLAY_H_
 #define GAMEPLAY_H_
 
