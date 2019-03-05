@@ -3,7 +3,7 @@
   ID: 2278709
   dearm102@mail.chapman.edu
   CPSC 350-01
-  Assignment 1: C++ Review
+  Assignment 2: Game of Life
   Purpose: This file, main.cpp, contains the main function for Assignment 2. The resulting program will first ask what mode the user wants to run their game in,
   (defaulting to a 10x!0 board with 0.5 population density in case of erroneous input). If file input is selected, the user will be prompted to enter the name of
   their file; if random is selected, the user will be prompted to enter the number of rows and columns and the population density. Then, the user will be asked
