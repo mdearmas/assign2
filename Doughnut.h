@@ -3,7 +3,7 @@
   ID: 2278709
   dearm102@mail.chapman.edu
   CPSC 350-01
-  Assignment 1: C++ Review
+  Assignment 2: Game of Life
   Purpose: This is the header file for the Doughnut class (child of Gameplay).  This overrides the check functions to adapt to Doughnut mode.
 */
 #ifndef DOUGHNUT_H

@@ -3,7 +3,7 @@
   ID: 2278709
   dearm102@mail.chapman.edu
   CPSC 350-01
-  Assignment 1: C++ Review
+  Assignment 2: Game of Life
   Purpose: This is contains the out-of-class member function for EnterSim.
 */
 #include "EnterSim.h"

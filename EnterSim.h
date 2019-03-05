@@ -3,7 +3,7 @@
   ID: 2278709
   dearm102@mail.chapman.edu
   CPSC 350-01
-  Assignment 1: C++ Review
+  Assignment 2: Game of Life
   Purpose: This is the header file for the EnterSim class (child of Simulation). It overrides the next() function so that the simulation will only proceed when the user presses [ENTER].
 */
 #ifndef ENTER_SIM_H_
