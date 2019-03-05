@@ -77,7 +77,7 @@ int main(int argc, char **argv)
     cout << "Enter the number of rows of the board: ";
     cin >> h;
 
-    //loop to ensure a valid number of rows
+    //loop to ensure a valid number of rows (source: https://stackoverflow.com/questions/18728754/checking-cin-input-stream-produces-an-integer)
     while (cin.fail() || h < 1)
     {
       //flushes the input stream
