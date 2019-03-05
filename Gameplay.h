@@ -10,11 +10,11 @@
 #ifndef GAMEPLAY_H_
 #define GAMEPLAY_H_
 
-#include <iostream>
+#include <iostream> //allows access to input/output
 
 #include "Gameboard.h" //allows us access to the Gameboard class
 
-using namespace std;
+using namespace std; //access to std
 
 class Gameplay {
 public:
@@ -29,8 +29,8 @@ public:
 
   virtual int checkHorizontal(int h, int v); //checks the cells directly left and right of the target cell
   virtual int checkVertical(int h, int v); //checks the cells directly above and below the target cell
-  virtual int checkLeftDiagonal(int h, int v);
-  virtual int checkRightDiagonal(int h, int v);
+  virtual int checkLeftDiagonal(int h, int v); //checks the top left cell and bottom right cell
+  virtual int checkRightDiagonal(int h, int v); //checks the top right cell and bottom left cell
 
   bool isStable(); //checks if the gameboard has stabilized (aka: no changes are occuring)
   bool isOscillating(); //checks if the gameboard is an oscillator circling back to its original iteration
