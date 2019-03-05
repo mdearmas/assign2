@@ -35,6 +35,8 @@ int main(int argc, char **argv)
 
   cout << "Would you like to input a map file or randomly generate a map? Enter 'M' for map file and 'R' for random. ";
   cin >> answer;
+  cin.clear();
+  cin.ignore(1024, '\n');
 
   if ( toupper(answer) == 'M' )
   {
