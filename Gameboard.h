@@ -39,7 +39,7 @@ public:
   bool compare(const Gameboard& g); //checks to see if the boards of two Gameboard objects are identical
   bool isEmpty(); //checks to see if the board has no 'X's
 
-  Gameboard& operator=(const Gameboard &g); //redefines the assignment operator
+  Gameboard& operator=(const Gameboard &g); //redefines the assignment operator (Source: https://stackoverflow.com/questions/11347599/how-to-define-an-assignment-operator-outside-my-header-file-in-c)
 
 private:
   int horizontal; //the number of rows
