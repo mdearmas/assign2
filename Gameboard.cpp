@@ -137,6 +137,9 @@ bool Gameboard::fileFill(string filename)
   if(input_file.is_open())
   {
     input_file >> h;
+    input_file.clear();
+    input_file.ignore(1024, '\n');
+
     input_file >> v;
     if (h < 1 || v < 1 || input_file.fail())
     {

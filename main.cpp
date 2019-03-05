@@ -8,7 +8,7 @@
 
 int main(int argc, char **argv)
 {
-  srand(time(NULL));
+  srand(time(NULL)); //seeding at startup for random generation
 
   ifstream input_file;
 
